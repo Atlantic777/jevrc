@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>net.devbase.jevrc</groupId>
+        <artifactId>jevrc-project</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>evrcviewer</artifactId>
+    <name>Evrc Viewer</name>
+    <description>Serbian evrc viewer application using the Jevrc library</description>
+    <version>0.1</version>
+    <!-- <properties> -->
+    <!--     <windowsProductVersion>1.1.0.1</windowsProductVersion> -->
+    <!--     <windowsProductName>JFreesteel eID Viewer</windowsProductName> -->
+    <!-- </properties> -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>net.devbase.jevrc.viewer.EvrcViewer</mainClass>
+                            <classpathPrefix>dependency/</classpathPrefix>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- <plugin> -->
+            <!--     <groupId>com.akathist.maven.plugins.launch4j</groupId> -->
+            <!--     <artifactId>launch4j&#45;maven&#45;plugin</artifactId> -->
+            <!--     <version>1.5.2</version> -->
+            <!--     <executions> -->
+            <!--         <execution> -->
+            <!--             <id>EidViewer</id> -->
+            <!--             <phase>package</phase> -->
+            <!--             <goals> -->
+            <!--                 <goal>launch4j</goal> -->
+            <!--             </goals> -->
+            <!--             <configuration> -->
+            <!--                 <headerType>gui</headerType> -->
+            <!--                 <outfile>${project.build.directory}/eidviewer.exe</outfile> -->
+            <!--                 <jar>${project.build.directory}/eidviewer&#45;${project.version}.jar</jar> -->
+            <!--                 <errTitle>JFreesteel</errTitle> -->
+            <!--                 <supportUrl>${project.url}</supportUrl> -->
+            <!--                 <customProcName>true</customProcName> -->
+            <!--                 <icon>packages/win/eidviewer.ico</icon> -->
+            <!--                 <classPath> -->
+            <!--                     <mainClass>net.devbase.jfreesteel.viewer.EidViewer</mainClass> -->
+            <!--                     <addDependencies>true</addDependencies> -->
+            <!--                 </classPath> -->
+            <!--                 <jre> -->
+            <!--                     <minVersion>1.7.0</minVersion> -->
+            <!--                 </jre> -->
+            <!--                 <versionInfo> -->
+            <!--                     <fileVersion>${windowsProductVersion}</fileVersion> -->
+            <!--                     <txtFileVersion>${project.version}</txtFileVersion> -->
+            <!--                     <fileDescription>${project.name}</fileDescription> -->
+            <!--                     <copyright>Goran Rakic</copyright> -->
+            <!--                     <productVersion>${windowsProductVersion}</productVersion> -->
+            <!--                     <txtProductVersion>${project.version}</txtProductVersion> -->
+            <!--                     <productName>${windowsProductName}</productName> -->
+            <!--                     <internalName>eidviewer</internalName> -->
+            <!--                     <originalFilename>eidviewer.exe</originalFilename> -->
+            <!--                 </versionInfo> -->
+            <!--             </configuration> -->
+            <!--         </execution> -->
+            <!--     </executions> -->
+            <!-- </plugin> -->
+        <!--     <plugin> -->
+        <!--         <groupId>org.codehaus.mojo</groupId> -->
+        <!--         <artifactId>nsis&#45;maven&#45;plugin</artifactId> -->
+        <!--         <version>1.0&#45;SNAPSHOT</version> -->
+        <!--         <executions> -->
+        <!--             <execution> -->
+        <!--                 <phase>install</phase> -->
+        <!--                 <goals> -->
+        <!--                     <goal>generate&#45;project</goal> -->
+        <!--                     <goal>compile</goal> -->
+        <!--                 </goals> -->
+        <!--                 <configuration> -->
+        <!--                     <outputFile>${project.build.directory}/jevrc&#45;${project.build.finalName}&#45;unsigned.exe</outputFile> -->
+        <!--                 </configuration> -->
+        <!--             </execution> -->
+        <!--         </executions> -->
+        <!--     </plugin> -->
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!-- Ignores the dependency plugin in Eclipse m2e -->
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-dependency-plugin</artifactId>
+                                        <versionRange>[2.0,)</versionRange>
+                                        <goals>
+                                            <goal>copy-dependencies</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <!-- <profiles> -->
+    <!--     <profile> -->
+    <!--         <id>release</id> -->
+            <!-- <build> -->
+            <!--     <plugins> -->
+                    <!-- <plugin> -->
+                    <!--     <artifactId>exec&#45;maven&#45;plugin</artifactId> -->
+                    <!--     <groupId>org.codehaus.mojo</groupId> -->
+                    <!--     <version>1.3.2</version> -->
+                    <!--     <executions> -->
+                    <!--         <execution> -->
+                    <!--             <id>sign&#45;installer</id> -->
+                    <!--             <phase>install</phase> -->
+                    <!--             <goals> -->
+                    <!--                 <goal>exec</goal> -->
+                    <!--             </goals> -->
+                    <!--             <configuration> -->
+                    <!--                 <executable>osslsigncode</executable> -->
+                    <!--                 <arguments> -->
+                    <!--                     <argument>&#45;spc</argument> -->
+                    <!--                     <argument>${codesign.keypath}/${codesign.alias}.spc</argument> -->
+                    <!--                     <argument>&#45;key</argument> -->
+                    <!--                     <argument>${codesign.keypath}/${codesign.alias}.key</argument> -->
+                    <!--                     <argument>&#45;t</argument> -->
+                    <!--                     <argument>http://time.certum.pl</argument> -->
+                    <!--                     <argument>&#45;in</argument> -->
+                    <!--                     <argument>${project.build.directory}/jevrc&#45;${project.build.finalName}&#45;unsigned.exe</argument> -->
+                    <!--                     <argument>&#45;out</argument> -->
+                    <!--                     <argument>${project.build.directory}/jevrc&#45;${project.build.finalName}.exe</argument> -->
+                    <!--                 </arguments> -->
+                    <!--             </configuration> -->
+                    <!--         </execution> -->
+                    <!--     </executions> -->
+                    <!-- </plugin> -->
+                <!-- </plugins> -->
+            <!-- </build> -->
+    <!--     </profile> -->
+    <!-- </profiles> -->
+    <repositories>
+        <repository>
+            <id>itextpdf.com</id>
+            <name>Maven Repository for iText</name>
+            <url>http://maven.itextpdf.com/</url>
+        </repository>
+        <repository>
+            <id>Codehaus Snapshots</id>
+            <url>http://nexus.codehaus.org/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>Codehaus Snapshots</id>
+            <url>http://nexus.codehaus.org/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <!-- Workaround for MNG-2974, see note below -->
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+    <dependencies>
+        <dependency>
+            <groupId>net.devbase.jevrc</groupId>
+            <artifactId>jevrc</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-simple</artifactId>
+		<version>1.7.7</version>
+	</dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.2</version>
+        </dependency>
+    </dependencies>
+</project>

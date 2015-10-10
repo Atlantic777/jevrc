@@ -30,5 +30,6 @@
     <modules>
         <module>jevrc</module>
         <module>evrcapplet</module>
+        <module>evrcviewer</module>
     </modules>
 </project>
