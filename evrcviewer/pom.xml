@@ -82,23 +82,23 @@
             <!--         </execution> -->
             <!--     </executions> -->
             <!-- </plugin> -->
-        <!--     <plugin> -->
-        <!--         <groupId>org.codehaus.mojo</groupId> -->
-        <!--         <artifactId>nsis&#45;maven&#45;plugin</artifactId> -->
-        <!--         <version>1.0&#45;SNAPSHOT</version> -->
-        <!--         <executions> -->
-        <!--             <execution> -->
-        <!--                 <phase>install</phase> -->
-        <!--                 <goals> -->
-        <!--                     <goal>generate&#45;project</goal> -->
-        <!--                     <goal>compile</goal> -->
-        <!--                 </goals> -->
-        <!--                 <configuration> -->
-        <!--                     <outputFile>${project.build.directory}/jevrc&#45;${project.build.finalName}&#45;unsigned.exe</outputFile> -->
-        <!--                 </configuration> -->
-        <!--             </execution> -->
-        <!--         </executions> -->
-        <!--     </plugin> -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nsis-maven-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>generate-project</goal>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>${project.build.directory}/jevrc-${project.build.finalName}-unsigned.exe</outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -130,44 +130,44 @@
             </plugins>
         </pluginManagement>
     </build>
-    <!-- <profiles> -->
-    <!--     <profile> -->
-    <!--         <id>release</id> -->
-            <!-- <build> -->
-            <!--     <plugins> -->
-                    <!-- <plugin> -->
-                    <!--     <artifactId>exec&#45;maven&#45;plugin</artifactId> -->
-                    <!--     <groupId>org.codehaus.mojo</groupId> -->
-                    <!--     <version>1.3.2</version> -->
-                    <!--     <executions> -->
-                    <!--         <execution> -->
-                    <!--             <id>sign&#45;installer</id> -->
-                    <!--             <phase>install</phase> -->
-                    <!--             <goals> -->
-                    <!--                 <goal>exec</goal> -->
-                    <!--             </goals> -->
-                    <!--             <configuration> -->
-                    <!--                 <executable>osslsigncode</executable> -->
-                    <!--                 <arguments> -->
-                    <!--                     <argument>&#45;spc</argument> -->
-                    <!--                     <argument>${codesign.keypath}/${codesign.alias}.spc</argument> -->
-                    <!--                     <argument>&#45;key</argument> -->
-                    <!--                     <argument>${codesign.keypath}/${codesign.alias}.key</argument> -->
-                    <!--                     <argument>&#45;t</argument> -->
-                    <!--                     <argument>http://time.certum.pl</argument> -->
-                    <!--                     <argument>&#45;in</argument> -->
-                    <!--                     <argument>${project.build.directory}/jevrc&#45;${project.build.finalName}&#45;unsigned.exe</argument> -->
-                    <!--                     <argument>&#45;out</argument> -->
-                    <!--                     <argument>${project.build.directory}/jevrc&#45;${project.build.finalName}.exe</argument> -->
-                    <!--                 </arguments> -->
-                    <!--             </configuration> -->
-                    <!--         </execution> -->
-                    <!--     </executions> -->
-                    <!-- </plugin> -->
-                <!-- </plugins> -->
-            <!-- </build> -->
-    <!--     </profile> -->
-    <!-- </profiles> -->
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <version>1.3.2</version>
+                        <executions>
+                            <execution>
+                                <id>sign-installer</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>osslsigncode</executable>
+                                    <arguments>
+                                        <argument>-spc</argument>
+                                        <argument>${codesign.keypath}/${codesign.alias}.spc</argument>
+                                        <argument>-key</argument>
+                                        <argument>${codesign.keypath}/${codesign.alias}.key</argument>
+                                        <argument>-t</argument>
+                                        <argument>http://time.certum.pl</argument>
+                                        <argument>-in</argument>
+                                        <argument>${project.build.directory}/jevrc-${project.build.finalName}-unsigned.exe</argument>
+                                        <argument>-out</argument>
+                                        <argument>${project.build.directory}/jevrc-${project.build.finalName}.exe</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     <repositories>
         <repository>
             <id>itextpdf.com</id>
