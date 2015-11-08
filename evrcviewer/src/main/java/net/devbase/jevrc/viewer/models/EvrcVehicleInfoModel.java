@@ -45,7 +45,7 @@ implements ReaderListener{
 	public EvrcVehicleInfoModel() {
 		this.translations = new HashMap<String, String>();
 		
-		translations.put("id_number", "Broj šasije");
+		translations.put("id_number", "Broj sasije");
 		translations.put("production_year", "Godina proizvodnje");
 		translations.put("max_net_power", "Snaga motora u kW");
 		translations.put("seats_number", "Broj mesta za sedenje");
@@ -61,11 +61,11 @@ implements ReaderListener{
 		translations.put("engine_capacity", "Radna zapremina motora");
 		translations.put("power_weight_ratio", "Odnos snaga/masa u kg/kW (moto)");
 		translations.put("standing_places_number", "Broj mesta za stajanje");
-		translations.put("max_permissible_laden_mass", "Najveća dozvoljena masa");
+		translations.put("max_permissible_laden_mass", "Najveca dozvoljena masa");
 		translations.put("make", "Marka");
 		translations.put("registration_number", "Registarski broj vozila");
 		translations.put("engine_id_number", "Broj motora");
-		translations.put("owner_change_restriction", "Zabrana otuđenja vozila do");
+		translations.put("owner_change_restriction", "Zabrana otudjenja vozila do");
 		translations.put("load", "Nosivost vozila");
 		
 		

@@ -3,23 +3,34 @@ package net.devbase.jevrc.viewer;
 import net.devbase.jevrc.viewer.models.*;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GraphicsConfiguration;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import net.devbase.jevrc.EvrcCard;
+import net.devbase.jevrc.EvrcInfo;
 import net.devbase.jevrc.Reader;
 import net.devbase.jevrc.Reader.ReaderListener;
 
+import javax.smartcardio.CardException;
 import javax.smartcardio.CardTerminal;
 import javax.smartcardio.TerminalFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 @SuppressWarnings("restriction")
-class EvrcViewer extends JPanel {
+class EvrcViewer
+	extends JPanel
+	implements Reader.ReaderListener {
   private static final long serialVersionUID = 1L;
   private static final String EVRC_VIEWER_TITLE = "Čitač saobraćajnih dozvola";
 
@@ -28,6 +39,7 @@ class EvrcViewer extends JPanel {
   private EvrcDocumentInfoModel documentSectionModel;
   private EvrcVehicleInfoModel vehicleSectionModel;
   private EvrcOwnerInfoModel ownerSectionModel;
+  private EvrcInfo evrcInfo;
   
   private JTable documentInfoTable;
   private JTable vehicleInfoTable;
@@ -38,12 +50,15 @@ class EvrcViewer extends JPanel {
   
   private JButton btnPDF;
   private JButton btnExit;
-  private JButton btnSrbTxt;
+  
+  private JLabel saveLabel;
+  private JFrame frame;
 
   public EvrcViewer() {
     // TODO: set size and layout
     // TODO: create splash screen
     // TODO: create details screen
+	this.evrcInfo = null;
 
 	// layout setup
 	this.setLayout(new BorderLayout());
@@ -81,15 +96,46 @@ class EvrcViewer extends JPanel {
     detailsPanel.add(new JLabel("Podaci o vlasniku"));
     detailsPanel.add(ownerInfoTable);
     
-    btnPDF = new JButton("PDF");
-    btnSrbTxt = new JButton("SRB TXT");
-    btnExit = new JButton("Exit");
+    btnPDF = new JButton("Sačuvaj PDF");
+    btnExit = new JButton("Izlaz");
+    
+    saveLabel = new JLabel("Podaci nisu spremni");
     
     btnPDF.addActionListener(new ActionListener() {
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println("PDF button clicked");
-		}
+		 public void actionPerformed(ActionEvent ev)
+	      {
+	        System.out.println("PDF button clicked");
+	        
+	        JFileChooser fc = new JFileChooser();
+	        fc.setSelectedFile(new File("saobracajna.pdf"));
+	        FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF", new String[] { "pdf" });
+	        fc.setFileFilter(filter);
+	        int returnVal = fc.showSaveDialog(frame);
+	        if (returnVal != 0) {
+	          return;
+	        }
+	        String filename = fc.getSelectedFile().toString();
+	        if (!filename.toLowerCase().endsWith(".pdf")) {
+	          filename = filename + ".pdf";
+	        }
+	        PdfReport report = null;
+	        if (EvrcViewer.this.evrcInfo != null) {
+	          report = new PdfReport(EvrcViewer.this.documentSectionModel, 
+	            EvrcViewer.this.vehicleSectionModel, EvrcViewer.this.ownerSectionModel);
+	        } else if (EvrcViewer.this.evrcInfo == null) {
+	          System.out.println("Card not inserted!");
+	        }
+	        try
+	        {
+	          System.out.println("writing to: " + filename);
+	          report.write(filename);
+	        }
+	        catch (Exception e)
+	        {
+	          e.printStackTrace();
+	        }
+	      }
     	
     });
     
@@ -101,8 +147,8 @@ class EvrcViewer extends JPanel {
     });
     
     buttonsPanel.add(btnPDF);
-    buttonsPanel.add(btnSrbTxt);
-    buttonsPanel.add(btnExit);    
+    buttonsPanel.add(btnExit);
+    buttonsPanel.add(saveLabel);
     
     add(detailsPanel, BorderLayout.CENTER);
     add(buttonsPanel, BorderLayout.SOUTH);
@@ -117,17 +163,10 @@ class EvrcViewer extends JPanel {
   }
 
 private static void createAndShowGUI() {
-    // TODO: Enable font anti aliasing
-    // TODO: set sr_RS locale as default
-
     // Create and set up the window
     JFrame frame = new JFrame(EVRC_VIEWER_TITLE);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setLocationRelativeTo(null);
-
-    // TODO: set window icon
-    // TODO: set default look and feel
-    // TODO: test for Java 1.6 or newer
 
     // Get the list of terminals
     CardTerminal terminal = null;
@@ -140,14 +179,31 @@ private static void createAndShowGUI() {
 
     EvrcViewer app = EvrcViewer.getInstance();
     app.setFrame(frame);
+    
+    // Get the screen size
+    GraphicsConfiguration gc = frame.getGraphicsConfiguration();
+    Rectangle bounds = gc.getBounds();
+     
+     
+    
+    
+    frame.setSize(600, 700);
     frame.getContentPane().add(app, BorderLayout.CENTER);
-    frame.pack();
+    
+    // Set the Location and Activate
+    Dimension size = frame.getPreferredSize();
+    frame.setLocation((int) ((bounds.width / 2) - (size.getWidth() / 2)),
+                      (int) ((bounds.height / 2) - (size.getHeight() / 2))); 
+    
+    frame.setLocation(150, 75);
 
     // Create reader and add model as listener
     Reader reader = new Reader(terminal);
     reader.addCardListener(app.getModel("document"));
     reader.addCardListener(app.getModel("vehicle"));
     reader.addCardListener(app.getModel("owner"));
+    
+    reader.addCardListener(app);
 
     frame.setVisible(true);
   }
@@ -161,6 +217,7 @@ private static void createAndShowGUI() {
   }
 
   public void setFrame(JFrame frame) {
+	  this.frame = frame;
   }
   
   ReaderListener getModel(String section) {
@@ -177,4 +234,25 @@ private static void createAndShowGUI() {
 		  return null;
 	  }
   }
+
+@Override
+public void inserted(EvrcCard card) {
+	try
+	{
+		this.evrcInfo = card.readEvrcInfo();
+		this.saveLabel.setText("Podaci su učitani");
+	}
+	catch (CardException e)
+	{
+		e.printStackTrace();
+	}
+	
+}
+
+@Override
+public void removed() {
+	this.saveLabel.setText("Podaci nisu spremni ili kartica nije ubačena");
+	this.evrcInfo = null;
+	
+}
 }

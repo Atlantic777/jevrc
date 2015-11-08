@@ -27,9 +27,9 @@ implements ReaderListener{
 	public EvrcOwnerInfoModel() {
 		this.translations = new HashMap<String, String>();
 		
-		translations.put("owner_legal_name", "prezime");
-		translations.put("owner_address", "adresa");
-		translations.put("owner_first_name", "ime");
+		translations.put("owner_legal_name", "Prezime");
+		translations.put("owner_address", "Adresa");
+		translations.put("owner_first_name", "Ime");
 		translations.put("owner_personalno", "JMBG");
 		
 		data = null;

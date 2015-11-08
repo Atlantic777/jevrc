@@ -31,11 +31,11 @@ implements ReaderListener{
 		this.translations = new HashMap<String, String>();
 		
 		translations.put("issuing_date", "Datum izdavanja");
-		translations.put("issuing_state", "Država izdavanja");
-		translations.put("competent_authority", "Ovlašćeni organ");
+		translations.put("issuing_state", "Drzava izdavanja");
+		translations.put("competent_authority", "Ovlasceni organ");
 		translations.put("issuing_authority", "Organ izdavanja dozvole");
 		translations.put("unambiguous_number", "Jedinstveni broj vozila");
-		translations.put("expiry_date", "Važenje registracije");
+		translations.put("expiry_date", "Vazenje registracije");
 		translations.put("serial_number", "Serijski broj dozvole");
 		
 		data = null;
