@@ -35,7 +35,9 @@ implements ReaderListener{
 			"standing_places_number",
 			"max_permissible_laden_mass",
 			"make",
-			"registration_number"
+			"registration_number",
+			"engine_id_number",
+			"owner_change_restriction"
 	};
 	
 	private HashMap<String, String> translations;
@@ -43,25 +45,28 @@ implements ReaderListener{
 	public EvrcVehicleInfoModel() {
 		this.translations = new HashMap<String, String>();
 		
-		translations.put("id_number", "id broj");
-		translations.put("production_year", "godina proizvodnje");
-		translations.put("max_net_power", "snaga");
-		translations.put("seats_number", "broj sedišta");
-		translations.put("axies_number", "broj osovina");
-		translations.put("type", "tip vozila");
-		translations.put("first_registration_date", "prva registracija");
-		translations.put("mass", "masa");
-		translations.put("vehicle_category", "kategorija vozila");
-		translations.put("fuel_type", "gorivo");
-		translations.put("type_approval_number", "type_approval_number");
-		translations.put("commercial_description", "model");
-		translations.put("color", "boja");
-		translations.put("engine_capacity", "zapremina motora");
-		translations.put("power_weight_ratio", "power_weight_ratio");
-		translations.put("standing_places_number", "broj mesta za stajanje");
-		translations.put("max_permissible_laden_mass", "nosivost");
-		translations.put("make", "proizvođač");
-		translations.put("registration_number", "registarska oznaka");
+		translations.put("id_number", "Broj šasije");
+		translations.put("production_year", "Godina proizvodnje");
+		translations.put("max_net_power", "Snaga motora u kW");
+		translations.put("seats_number", "Broj mesta za sedenje");
+		translations.put("axies_number", "Broj osovina");
+		translations.put("type", "Tip");
+		translations.put("first_registration_date", "Datum prve registracije");
+		translations.put("mass", "Masa");
+		translations.put("vehicle_category", "Vrsta vozila");
+		translations.put("fuel_type", "Vrsta goriva ili pogona");
+		translations.put("type_approval_number", "Homologacijska oznaka");
+		translations.put("commercial_description", "Komercijalna oznaka (model)");
+		translations.put("color", "Boja vozila");
+		translations.put("engine_capacity", "Radna zapremina motora");
+		translations.put("power_weight_ratio", "Odnos snaga/masa u kg/kW (moto)");
+		translations.put("standing_places_number", "Broj mesta za stajanje");
+		translations.put("max_permissible_laden_mass", "Najveća dozvoljena masa");
+		translations.put("make", "Marka");
+		translations.put("registration_number", "Registarski broj vozila");
+		translations.put("engine_id_number", "Broj motora");
+		translations.put("owner_change_restriction", "Zabrana otuđenja vozila do");
+		translations.put("load", "Nosivost vozila");
 		
 		
 		data = null;

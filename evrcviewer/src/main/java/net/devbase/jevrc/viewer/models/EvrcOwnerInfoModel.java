@@ -16,9 +16,9 @@ implements ReaderListener{
 	JSONObject data;
 	
 	private String[] keys = {
+			"owner_first_name",
 			"owner_legal_name",
 			"owner_address",
-			"owner_first_name",
 			"owner_personalno"
 	};
 	

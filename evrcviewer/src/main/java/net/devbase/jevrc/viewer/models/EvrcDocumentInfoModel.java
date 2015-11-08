@@ -30,13 +30,13 @@ implements ReaderListener{
 	public EvrcDocumentInfoModel() {
 		this.translations = new HashMap<String, String>();
 		
-		translations.put("issuing_date", "datum izdavanja");
-		translations.put("issuing_state", "država");
-		translations.put("competent_authority", "izdaje");
-		translations.put("issuing_authority", "izdaje");
-		translations.put("unambiguous_number", "broj dozvole");
-		translations.put("expiry_date", "važi do");
-		translations.put("serial_number", "serijski broj");
+		translations.put("issuing_date", "Datum izdavanja");
+		translations.put("issuing_state", "Država izdavanja");
+		translations.put("competent_authority", "Ovlašćeni organ");
+		translations.put("issuing_authority", "Organ izdavanja dozvole");
+		translations.put("unambiguous_number", "Jedinstveni broj vozila");
+		translations.put("expiry_date", "Važenje registracije");
+		translations.put("serial_number", "Serijski broj dozvole");
 		
 		data = null;
 	}
